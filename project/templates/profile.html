@@ -1,7 +1,47 @@
 {% extends "base.html" %}
 
 {% block content %}
-<h1 class="title">
-    Welcome, {{ name }}!
-</h1>
+
+<div class="grid grid-cols-1 md:grid-cols-2 m-0 h-full overflow-hidden gap-2">
+    
+    
+    <div class="w-full">
+        <p class="font-medium text-2xl my-2 mx-5 text-center">My posts</p>
+        <div class="my-posts flex flex-col overflow-y-scroll pt-5">
+            {% for note in user_notes %}
+            <div class="block w-full mb-5 p-6 bg-white border border-gray-200 rounded-lg shadow hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700">
+            <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">{{ note.title }}</h5>
+            <p class="font-normal text-gray-700 dark:text-gray-400">{{ note.text }}</p>
+            <hr class="my-3">
+            <div class="flex flex-row bg-pink-400"></div>
+                <div class="flex flex-row">
+                    <p class="likes_count">{{ note.get_likes() }}<b class="ml-1 text-xl">❤️</b></p>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+
+    <div class="md:fixed md:right-0 md:top-0 flex flex-col w-full md:w-1/2">
+        <h1 class="font-bold text-3xl mt-5">
+            {{ name }}
+        </h1>
+        <hr class="my-3">
+        <p class="font-medium text-lg">Add Note</p>
+        <form method="POST" action="/profile" class="mb-2" class="flex flex-col items-center">
+
+            <div class="mb-2">
+                <input type="title" name="title" placeholder="title" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+            </div>
+            <textarea id="message" name="text" rows="4" class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Write your thoughts here..."></textarea>
+
+            <div class="text-center">
+                <button class="text-white bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 my-2 w-1/2">Add</button>
+            </div>
+
+        </form>
+        
+    
+    </div>
+</div>
 {% endblock %}
